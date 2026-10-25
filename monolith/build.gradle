@@ -1,0 +1,17 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'co.icesi.fractal.monolith.MonolithicMain'
+}
+
+task runMonolith(type: JavaExec) {
+    mainClass = 'co.icesi.fractal.monolith.MonolithicMain'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}

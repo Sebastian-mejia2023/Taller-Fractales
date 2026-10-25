@@ -1,0 +1,17 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'co.icesi.fractal.master.MasterMain'
+}
+
+task runMaster(type: JavaExec) {
+    mainClass = 'co.icesi.fractal.master.MasterMain'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}

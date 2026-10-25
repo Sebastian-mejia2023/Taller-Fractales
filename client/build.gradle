@@ -1,0 +1,23 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'co.icesi.fractal.client.ClientMain'
+}
+
+task runClient(type: JavaExec) {
+    mainClass = 'co.icesi.fractal.client.ClientMain'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}
+
+task runExperiment(type: JavaExec) {
+    mainClass = 'co.icesi.fractal.client.ExperimentRunner'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}

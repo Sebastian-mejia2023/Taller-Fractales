@@ -1,0 +1,17 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'co.icesi.fractal.worker.WorkerMain'
+}
+
+task runWorker(type: JavaExec) {
+    mainClass = 'co.icesi.fractal.worker.WorkerMain'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}
