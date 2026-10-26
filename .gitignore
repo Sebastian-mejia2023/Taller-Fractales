@@ -1,0 +1,10 @@
+.gradle/
+**/build/
+build/
+out/
+.idea/
+*.iml
+local.properties
+output/
+results/cache/
+results/**/*.bin
