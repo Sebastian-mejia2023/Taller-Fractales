@@ -1,0 +1,4 @@
+run_label,job_id,workers,width,height,max_iter,preset,strategy_type,strategy_param,tasks,t_sec_ms,t_dist_ms,speedup,efficiency_pct,errors
+exp3_p1_r1,job-47cb3c79,1,3840,2160,5000,seahorse,1,64,2040,380955,383630,0.9930,99.3027,0
+exp3_p2_r1,job-032c99e1,2,3840,2160,5000,seahorse,1,64,2040,380955,187220,2.0348,101.7399,0
+exp3_p4_r1,job-9e1dd1ef,4,3840,2160,5000,seahorse,1,64,2040,380955,112243,3.3940,84.8505,0

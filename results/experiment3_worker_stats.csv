@@ -1,0 +1,8 @@
+run_label,job_id,worker_id,tasks_completed,compute_time_ms
+exp3_p1_r1,job-47cb3c79,Worker-P1-1,2040,379362
+exp3_p2_r1,job-032c99e1,Worker-P2-1,1005,184512
+exp3_p2_r1,job-032c99e1,Worker-P2-2,1035,184515
+exp3_p4_r1,job-9e1dd1ef,Worker-P4-1,543,109968
+exp3_p4_r1,job-9e1dd1ef,Worker-P4-2,534,110185
+exp3_p4_r1,job-9e1dd1ef,Worker-P4-3,491,110294
+exp3_p4_r1,job-9e1dd1ef,Worker-P4-4,472,110160

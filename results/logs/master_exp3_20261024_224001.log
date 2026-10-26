@@ -1,0 +1,110 @@
+=================================================
+        NODO MAESTRO (MASTER) INICIADO
+=================================================
+Escuchando en: tcp -h 0.0.0.0 -p 10000
+ThreadPool Server: 16 hilos base (max 64)
+Esperando conexion y registro de Workers...
+Presione Ctrl+C para finalizar.
+=================================================
+[MASTER] [+] Worker registrado: Worker-P1-1 | Total activos: 1
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: job-47cb3c79
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedTileSizeStrategy (64x64 px)
+[MASTER] 2040 tareas encoladas. Notificando a 1 worker(s)...
+[MASTER] [OK] Tarea #101 de Worker-P1-1 en 217 ms. Progreso: 102/2040 (5.0%)
+[MASTER] [OK] Tarea #203 de Worker-P1-1 en 231 ms. Progreso: 204/2040 (10.0%)
+[MASTER] [OK] Tarea #305 de Worker-P1-1 en 1 ms. Progreso: 306/2040 (15.0%)
+[MASTER] [OK] Tarea #407 de Worker-P1-1 en 294 ms. Progreso: 408/2040 (20.0%)
+[MASTER] [OK] Tarea #509 de Worker-P1-1 en 231 ms. Progreso: 510/2040 (25.0%)
+[MASTER] [OK] Tarea #611 de Worker-P1-1 en 7 ms. Progreso: 612/2040 (30.0%)
+[MASTER] [OK] Tarea #713 de Worker-P1-1 en 285 ms. Progreso: 714/2040 (35.0%)
+[MASTER] [OK] Tarea #815 de Worker-P1-1 en 320 ms. Progreso: 816/2040 (40.0%)
+[MASTER] [OK] Tarea #917 de Worker-P1-1 en 287 ms. Progreso: 918/2040 (45.0%)
+[MASTER] [OK] Tarea #1019 de Worker-P1-1 en 318 ms. Progreso: 1020/2040 (50.0%)
+[MASTER] [OK] Tarea #1121 de Worker-P1-1 en 298 ms. Progreso: 1122/2040 (55.0%)
+[MASTER] [OK] Tarea #1223 de Worker-P1-1 en 276 ms. Progreso: 1224/2040 (60.0%)
+[MASTER] [OK] Tarea #1325 de Worker-P1-1 en 2 ms. Progreso: 1326/2040 (65.0%)
+[MASTER] [OK] Tarea #1427 de Worker-P1-1 en 320 ms. Progreso: 1428/2040 (70.0%)
+[MASTER] [OK] Tarea #1529 de Worker-P1-1 en 320 ms. Progreso: 1530/2040 (75.0%)
+[MASTER] [OK] Tarea #1631 de Worker-P1-1 en 5 ms. Progreso: 1632/2040 (80.0%)
+[MASTER] [OK] Tarea #1733 de Worker-P1-1 en 239 ms. Progreso: 1734/2040 (85.0%)
+[MASTER] [OK] Tarea #1835 de Worker-P1-1 en 292 ms. Progreso: 1836/2040 (90.0%)
+[MASTER] [OK] Tarea #1937 de Worker-P1-1 en 31 ms. Progreso: 1938/2040 (95.0%)
+[MASTER] [OK] Tarea #2039 de Worker-P1-1 en 186 ms. Progreso: 2040/2040 (100.0%)
+[MASTER] Renderizado completado en 383093 ms (2040/2040 tareas).
+[MASTER] Carga por worker para job-47cb3c79:
+[MASTER]   Worker-P1-1: 2040 tareas, 379362 ms de computo
+[MASTER] [-] Worker retirado: Worker-P1-1 | Total activos: 0
+[MASTER] [+] Worker registrado: Worker-P2-1 | Total activos: 1
+[MASTER] [+] Worker registrado: Worker-P2-2 | Total activos: 2
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: job-032c99e1
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedTileSizeStrategy (64x64 px)
+[MASTER] 2040 tareas encoladas. Notificando a 2 worker(s)...
+[MASTER] [OK] Tarea #101 de Worker-P2-1 en 299 ms. Progreso: 102/2040 (5.0%)
+[MASTER] [OK] Tarea #203 de Worker-P2-2 en 292 ms. Progreso: 204/2040 (10.0%)
+[MASTER] [OK] Tarea #306 de Worker-P2-2 en 4 ms. Progreso: 306/2040 (15.0%)
+[MASTER] [OK] Tarea #407 de Worker-P2-1 en 268 ms. Progreso: 408/2040 (20.0%)
+[MASTER] [OK] Tarea #509 de Worker-P2-2 en 228 ms. Progreso: 510/2040 (25.0%)
+[MASTER] [OK] Tarea #611 de Worker-P2-2 en 10 ms. Progreso: 612/2040 (30.0%)
+[MASTER] [OK] Tarea #713 de Worker-P2-1 en 250 ms. Progreso: 714/2040 (35.0%)
+[MASTER] [OK] Tarea #815 de Worker-P2-1 en 258 ms. Progreso: 816/2040 (40.0%)
+[MASTER] [OK] Tarea #917 de Worker-P2-2 en 242 ms. Progreso: 918/2040 (45.0%)
+[MASTER] [OK] Tarea #1020 de Worker-P2-2 en 2 ms. Progreso: 1020/2040 (50.0%)
+[MASTER] [OK] Tarea #1121 de Worker-P2-1 en 258 ms. Progreso: 1122/2040 (55.0%)
+[MASTER] [OK] Tarea #1223 de Worker-P2-2 en 231 ms. Progreso: 1224/2040 (60.0%)
+[MASTER] [OK] Tarea #1326 de Worker-P2-1 en 4 ms. Progreso: 1326/2040 (65.0%)
+[MASTER] [OK] Tarea #1427 de Worker-P2-2 en 247 ms. Progreso: 1428/2040 (70.0%)
+[MASTER] [OK] Tarea #1529 de Worker-P2-1 en 214 ms. Progreso: 1530/2040 (75.0%)
+[MASTER] [OK] Tarea #1632 de Worker-P2-1 en 13 ms. Progreso: 1632/2040 (80.0%)
+[MASTER] [OK] Tarea #1733 de Worker-P2-1 en 259 ms. Progreso: 1734/2040 (85.0%)
+[MASTER] [OK] Tarea #1835 de Worker-P2-2 en 336 ms. Progreso: 1836/2040 (90.0%)
+[MASTER] [OK] Tarea #1937 de Worker-P2-2 en 19 ms. Progreso: 1938/2040 (95.0%)
+[MASTER] [OK] Tarea #2039 de Worker-P2-2 en 266 ms. Progreso: 2040/2040 (100.0%)
+[MASTER] Renderizado completado en 186739 ms (2040/2040 tareas).
+[MASTER] Carga por worker para job-032c99e1:
+[MASTER]   Worker-P2-1: 1005 tareas, 184512 ms de computo
+[MASTER]   Worker-P2-2: 1035 tareas, 184515 ms de computo
+[MASTER] [-] Worker retirado: Worker-P2-1 | Total activos: 1
+[MASTER] [-] Worker retirado: Worker-P2-2 | Total activos: 0
+[MASTER] [+] Worker registrado: Worker-P4-1 | Total activos: 1
+[MASTER] [+] Worker registrado: Worker-P4-2 | Total activos: 2
+[MASTER] [+] Worker registrado: Worker-P4-3 | Total activos: 3
+[MASTER] [+] Worker registrado: Worker-P4-4 | Total activos: 4
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: job-9e1dd1ef
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedTileSizeStrategy (64x64 px)
+[MASTER] 2040 tareas encoladas. Notificando a 4 worker(s)...
+[MASTER] [OK] Tarea #101 de Worker-P4-2 en 314 ms. Progreso: 102/2040 (5.0%)
+[MASTER] [OK] Tarea #202 de Worker-P4-1 en 377 ms. Progreso: 204/2040 (10.0%)
+[MASTER] [OK] Tarea #307 de Worker-P4-4 en 14 ms. Progreso: 306/2040 (15.0%)
+[MASTER] [OK] Tarea #405 de Worker-P4-3 en 386 ms. Progreso: 408/2040 (20.0%)
+[MASTER] [OK] Tarea #509 de Worker-P4-4 en 346 ms. Progreso: 510/2040 (25.0%)
+[MASTER] [OK] Tarea #613 de Worker-P4-2 en 5 ms. Progreso: 612/2040 (30.0%)
+[MASTER] [OK] Tarea #714 de Worker-P4-1 en 243 ms. Progreso: 714/2040 (35.0%)
+[MASTER] [OK] Tarea #813 de Worker-P4-4 en 526 ms. Progreso: 816/2040 (40.0%)
+[MASTER] [OK] Tarea #918 de Worker-P4-2 en 229 ms. Progreso: 918/2040 (45.0%)
+[MASTER] [OK] Tarea #1022 de Worker-P4-4 en 3 ms. Progreso: 1020/2040 (50.0%)
+[MASTER] [OK] Tarea #1121 de Worker-P4-2 en 303 ms. Progreso: 1122/2040 (55.0%)
+[MASTER] [OK] Tarea #1223 de Worker-P4-4 en 272 ms. Progreso: 1224/2040 (60.0%)
+[MASTER] [OK] Tarea #1327 de Worker-P4-2 en 11 ms. Progreso: 1326/2040 (65.0%)
+[MASTER] [OK] Tarea #1427 de Worker-P4-1 en 223 ms. Progreso: 1428/2040 (70.0%)
+[MASTER] [OK] Tarea #1528 de Worker-P4-1 en 391 ms. Progreso: 1530/2040 (75.0%)
+[MASTER] [OK] Tarea #1632 de Worker-P4-3 en 12 ms. Progreso: 1632/2040 (80.0%)
+[MASTER] [OK] Tarea #1731 de Worker-P4-2 en 500 ms. Progreso: 1734/2040 (85.0%)
+[MASTER] [OK] Tarea #1834 de Worker-P4-3 en 318 ms. Progreso: 1836/2040 (90.0%)
+[MASTER] [OK] Tarea #1938 de Worker-P4-2 en 41 ms. Progreso: 1938/2040 (95.0%)
+[MASTER] [OK] Tarea #2039 de Worker-P4-2 en 195 ms. Progreso: 2040/2040 (100.0%)
+[MASTER] Renderizado completado en 111890 ms (2040/2040 tareas).
+[MASTER] Carga por worker para job-9e1dd1ef:
+[MASTER]   Worker-P4-1: 543 tareas, 109968 ms de computo
+[MASTER]   Worker-P4-2: 534 tareas, 110185 ms de computo
+[MASTER]   Worker-P4-3: 491 tareas, 110294 ms de computo
+[MASTER]   Worker-P4-4: 472 tareas, 110160 ms de computo
+[MASTER] [-] Worker retirado: Worker-P4-1 | Total activos: 3
+[MASTER] [-] Worker retirado: Worker-P4-2 | Total activos: 2
+[MASTER] [-] Worker retirado: Worker-P4-3 | Total activos: 1
+[MASTER] [-] Worker retirado: Worker-P4-4 | Total activos: 0
