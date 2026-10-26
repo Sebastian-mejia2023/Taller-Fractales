@@ -49,6 +49,15 @@ module FractalApp {
         string workerId;
     };
 
+    // Metricas agregadas por Worker para el ultimo trabajo finalizado
+    struct WorkerJobStat {
+        string workerId;
+        int tasksCompleted;
+        long computeTimeMs;
+    };
+
+    sequence<WorkerJobStat> WorkerJobStats;
+
     exception FractalException {
         string reason;
     };
@@ -68,7 +77,7 @@ module FractalApp {
         void unregisterWorker(string workerId);
 
         // Metodo de "pull": el Worker solicita una tarea pendiente de la cola
-        TaskTile pollTask(string workerId);
+        TaskTile pollTask(string workerId, string jobId);
 
         // Metodo asincrono: el Worker entrega el resultado de una baldosa computada
         void reportResult(TileResult result) throws FractalException;
@@ -76,6 +85,7 @@ module FractalApp {
         // Consultas de estado
         idempotent int getWorkerCount();
         idempotent int getPendingTasksCount();
+        idempotent WorkerJobStats getLastJobStats();
     };
 
 };

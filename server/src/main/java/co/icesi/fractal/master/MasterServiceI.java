@@ -5,98 +5,130 @@ import co.icesi.fractal.strategy.PartitionStrategyFactory;
 import co.icesi.fractal.strategy.TaskPartitionStrategy;
 import com.zeroc.Ice.Current;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Servant del Maestro (MasterService).
- * 
- * Implementa la orquestacion independiente y asincrona:
- * 1. Mantiene una cola de tareas (Task Queue) poblada segun la estrategia de particion.
- * 2. Mantiene el registro de observadores (WorkerObserver) de los workers activos.
- * 3. Notifica a los workers cuando hay tareas disponibles sin mantener hilos bloqueados hacia ellos.
- * 4. Atiende las peticiones 'pollTask' donde cada worker extrae autonomamente su trabajo.
- * 5. Consolida incrementalmente los bloques recibidos en 'reportResult'.
- */
 public class MasterServiceI implements MasterService {
 
+    private static final long JOB_TIMEOUT_MINUTES = 30;
+    private static final boolean VERBOSE = Boolean.parseBoolean(
+        System.getenv().getOrDefault("FRACTAL_VERBOSE", "false"));
+
     private final Map<String, WorkerObserverPrx> workers = new ConcurrentHashMap<>();
-    private final ConcurrentLinkedQueue<TaskTile> taskQueue = new ConcurrentLinkedQueue<>();
+    private final Object jobLock = new Object();
 
-    private final AtomicInteger totalTasksCount = new AtomicInteger(0);
-    private final AtomicInteger completedTasksCount = new AtomicInteger(0);
-
-    private int[][] finalImageMatrix;
-    private CompletableFuture<int[][]> jobCompletionFuture;
-    private long jobStartTime;
-    private final Object consolidationLock = new Object();
+    private volatile JobContext activeJob;
+    private volatile WorkerJobStat[] lastJobStats = new WorkerJobStat[0];
+    private volatile String lastJobId = "";
 
     @Override
     public int[][] renderFractal(RenderConfig config, Current current) throws FractalException {
         if (workers.isEmpty()) {
             throw new FractalException("No hay Workers registrados en el Master. Inicie al menos un Worker.");
         }
+        if (config.width <= 0 || config.height <= 0 || config.maxIterations <= 0) {
+            throw new FractalException("Configuracion de renderizado invalida.");
+        }
+        if (config.jobId == null || config.jobId.isEmpty()) {
+            config.jobId = "job-" + UUID.randomUUID();
+        }
 
-        // 1. Aplicar patron Strategy para particionar la tarea global
         TaskPartitionStrategy strategy = PartitionStrategyFactory.createStrategy(
             config.strategyType, config.strategyParam
         );
-        System.out.println("-------------------------------------------------");
-        System.out.println("[MASTER] Nueva solicitud de renderizado: " + config.jobId);
-        System.out.printf("[MASTER] Resolucion: %dx%d | MaxIter: %d%n", config.width, config.height, config.maxIterations);
-        System.out.println("[MASTER] Estrategia de particion: " + strategy.getStrategyName());
-
         List<TaskTile> tiles = strategy.partition(config);
         if (tiles.isEmpty()) {
             throw new FractalException("La estrategia de particion no genero tareas.");
         }
 
-        // 2. Encolar las tareas en la bolsa de tareas (Bag of Tasks)
-        taskQueue.clear();
-        taskQueue.addAll(tiles);
-        totalTasksCount.set(tiles.size());
-        completedTasksCount.set(0);
-
-        finalImageMatrix = new int[config.height][config.width];
-        jobCompletionFuture = new CompletableFuture<>();
-        jobStartTime = System.currentTimeMillis();
-
-        System.out.printf("[MASTER] %d tareas encoladas. Notificando a %d worker(s) en espera...%n",
-            tiles.size(), workers.size());
-
-        // 3. Notificacion asincrona a los observadores de los workers (sin hilos persistentes)
-        for (Map.Entry<String, WorkerObserverPrx> entry : workers.entrySet()) {
-            String workerId = entry.getKey();
-            WorkerObserverPrx observer = entry.getValue();
-            CompletableFuture.runAsync(() -> {
-                try {
-                    observer.notifyTasksAvailable(config.jobId);
-                } catch (Exception e) {
-                    System.err.printf("[MASTER] [WARN] No se pudo notificar a %s: %s%n", workerId, e.getMessage());
-                }
-            });
+        JobContext ctx;
+        synchronized (jobLock) {
+            if (activeJob != null) {
+                throw new FractalException("Ya hay un trabajo en curso: " + activeJob.jobId);
+            }
+            ctx = new JobContext(config, tiles);
+            activeJob = ctx;
         }
 
-        // 4. Esperar la consolidacion de la ultima tarea
+        System.out.println("-------------------------------------------------");
+        System.out.println("[MASTER] Nueva solicitud de renderizado: " + ctx.jobId);
+        System.out.printf("[MASTER] Resolucion: %dx%d | MaxIter: %d%n", config.width, config.height, config.maxIterations);
+        System.out.println("[MASTER] Estrategia de particion: " + strategy.getStrategyName());
+        System.out.printf("[MASTER] %d tareas encoladas. Notificando a %d worker(s)...%n",
+            tiles.size(), workers.size());
+
         try {
-            int[][] result = jobCompletionFuture.get(15, TimeUnit.MINUTES);
-            long elapsed = System.currentTimeMillis() - jobStartTime;
-            System.out.printf("[MASTER] Renderizado completado exitosamente en %d ms (%d tareas procesadas).%n",
-                elapsed, totalTasksCount.get());
+            notifyWorkers(ctx.jobId);
+
+            int[][] result = ctx.completion.get(JOB_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+            long elapsed = System.currentTimeMillis() - ctx.startTime;
+            System.out.printf(Locale.US,
+                "[MASTER] Renderizado completado en %d ms (%d/%d tareas).%n",
+                elapsed, ctx.completed.get(), ctx.totalTasks);
             return result;
         } catch (TimeoutException e) {
-            throw new FractalException("Tiempo de espera agotado (Timeout) esperando respuesta de los workers.");
-        } catch (Exception e) {
+            throw new FractalException("Tiempo de espera agotado esperando resultados de los workers.");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new FractalException("Renderizado interrumpido.");
+        } catch (ExecutionException e) {
             throw new FractalException("Error durante la consolidacion del fractal: " + e.getMessage());
+        } finally {
+            synchronized (jobLock) {
+                if (activeJob == ctx) {
+                    activeJob = null;
+                    lastJobId = ctx.jobId;
+                    lastJobStats = ctx.snapshotStats();
+                    ctx.queue.clear();
+                }
+            }
+            printWorkerSummary(ctx);
+        }
+    }
+
+    private void notifyWorkers(String jobId) {
+        for (Map.Entry<String, WorkerObserverPrx> entry : workers.entrySet()) {
+            notifyWorkerAsync(entry.getKey(), entry.getValue(), jobId);
+        }
+    }
+
+    private void notifyWorkerAsync(String workerId, WorkerObserverPrx observer, String jobId) {
+        CompletableFuture.runAsync(() -> {
+            try {
+                observer.notifyTasksAvailable(jobId);
+            } catch (Exception e) {
+                System.err.printf("[MASTER] [WARN] No se pudo notificar a %s: %s%n", workerId, e.getMessage());
+            }
+        });
+    }
+
+    private void printWorkerSummary(JobContext ctx) {
+        WorkerJobStat[] stats = ctx.snapshotStats();
+        if (stats.length == 0) {
+            return;
+        }
+        System.out.println("[MASTER] Carga por worker para " + ctx.jobId + ":");
+        for (WorkerJobStat stat : stats) {
+            System.out.printf("[MASTER]   %s: %d tareas, %d ms de computo%n",
+                stat.workerId, stat.tasksCompleted, stat.computeTimeMs);
         }
     }
 
     @Override
     public void registerWorker(String workerId, WorkerObserverPrx observer, Current current) {
-        if (observer != null) {
-            workers.put(workerId, observer);
-            System.out.printf("[MASTER] [+] Worker registrado: %s | Total activos: %d%n", workerId, workers.size());
+        if (observer == null) {
+            return;
+        }
+        workers.put(workerId, observer);
+        System.out.printf("[MASTER] [+] Worker registrado: %s | Total activos: %d%n", workerId, workers.size());
+
+        JobContext ctx = activeJob;
+        if (ctx != null) {
+            notifyWorkerAsync(workerId, observer, ctx.jobId);
         }
     }
 
@@ -107,13 +139,13 @@ public class MasterServiceI implements MasterService {
     }
 
     @Override
-    public TaskTile pollTask(String workerId, Current current) {
-        TaskTile task = taskQueue.poll();
-        if (task != null) {
-            return task;
+    public TaskTile pollTask(String workerId, String jobId, Current current) {
+        JobContext ctx = activeJob;
+        if (ctx == null || jobId == null || !ctx.jobId.equals(jobId)) {
+            return emptyTask();
         }
-        // Retorna un TaskTile inactivo (hasTask = false) para indicar que la cola esta vacia
-        return new TaskTile(false, "", -1, 0, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0);
+        TaskTile task = ctx.queue.poll();
+        return (task != null) ? task : emptyTask();
     }
 
     @Override
@@ -122,28 +154,58 @@ public class MasterServiceI implements MasterService {
             throw new FractalException("Resultado nulo recibido en el Master.");
         }
 
-        // Consolidacion incremental del bloque de pixeles en la matriz global
-        synchronized (consolidationLock) {
-            if (finalImageMatrix != null) {
-                int startX = result.startX;
-                int startY = result.startY;
-                for (int r = 0; r < result.tileHeight; r++) {
-                    for (int c = 0; c < result.tileWidth; c++) {
-                        finalImageMatrix[startY + r][startX + c] = result.pixels[r][c];
-                    }
-                }
+        JobContext ctx = activeJob;
+        if (ctx == null || !ctx.jobId.equals(result.jobId)) {
+            System.err.printf("[MASTER] [WARN] Resultado tardio o de otro trabajo ignorado: job=%s tarea=%d worker=%s%n",
+                result.jobId, result.taskId, result.workerId);
+            return;
+        }
+
+        validateResult(ctx, result);
+
+        synchronized (ctx.consolidationLock) {
+            if (!ctx.completedTaskIds.add(result.taskId)) {
+                System.err.printf("[MASTER] [WARN] Resultado duplicado ignorado: job=%s tarea=%d%n",
+                    result.jobId, result.taskId);
+                return;
+            }
+            for (int r = 0; r < result.tileHeight; r++) {
+                System.arraycopy(result.pixels[r], 0, ctx.image[result.startY + r], result.startX, result.tileWidth);
             }
         }
 
-        int finished = completedTasksCount.incrementAndGet();
-        int total = totalTasksCount.get();
+        int finished = ctx.completed.incrementAndGet();
+        ctx.recordWorker(result.workerId, result.computeTimeMs);
 
-        System.out.printf("[MASTER] [OK] Tarea #%03d entregada por %s (%d ms). Progreso: %d/%d (%.1f%%)%n",
-            result.taskId, result.workerId, result.computeTimeMs, finished, total, (finished * 100.0 / total));
+        if (VERBOSE || finished == ctx.totalTasks || finished % ctx.progressInterval == 0) {
+            System.out.printf(Locale.US,
+                "[MASTER] [OK] Tarea #%d de %s en %d ms. Progreso: %d/%d (%.1f%%)%n",
+                result.taskId, result.workerId, result.computeTimeMs,
+                finished, ctx.totalTasks, (finished * 100.0 / ctx.totalTasks));
+        }
 
-        // Cuando la ultima tarea es recibida, se completa el futuro de la operacion global
-        if (finished >= total && jobCompletionFuture != null && !jobCompletionFuture.isDone()) {
-            jobCompletionFuture.complete(finalImageMatrix);
+        if (finished >= ctx.totalTasks) {
+            ctx.completion.complete(ctx.image);
+        }
+    }
+
+    private void validateResult(JobContext ctx, TileResult result) throws FractalException {
+        if (result.taskId < 0 || result.taskId >= ctx.totalTasks) {
+            throw new FractalException("taskId fuera de rango: " + result.taskId);
+        }
+        if (result.startX < 0 || result.startY < 0
+            || result.tileWidth <= 0 || result.tileHeight <= 0
+            || result.startX + result.tileWidth > ctx.width
+            || result.startY + result.tileHeight > ctx.height) {
+            throw new FractalException("Bloque fuera de los limites de la imagen.");
+        }
+        if (result.pixels.length != result.tileHeight) {
+            throw new FractalException("Altura de pixeles inconsistente para la tarea " + result.taskId);
+        }
+        for (int r = 0; r < result.tileHeight; r++) {
+            if (result.pixels[r] == null || result.pixels[r].length != result.tileWidth) {
+                throw new FractalException("Ancho de pixeles inconsistente para la tarea " + result.taskId);
+            }
         }
     }
 
@@ -154,6 +216,79 @@ public class MasterServiceI implements MasterService {
 
     @Override
     public int getPendingTasksCount(Current current) {
-        return taskQueue.size();
+        JobContext ctx = activeJob;
+        return (ctx != null) ? ctx.queue.size() : 0;
+    }
+
+    @Override
+    public WorkerJobStat[] getLastJobStats(Current current) {
+        return lastJobStats.clone();
+    }
+
+    public String getLastJobId() {
+        return lastJobId;
+    }
+
+    private static TaskTile emptyTask() {
+        return new TaskTile(false, "", -1, 0, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0);
+    }
+
+    private static final class WorkerAccumulator {
+        private int tasksCompleted;
+        private long computeTimeMs;
+
+        synchronized void add(long computeMs) {
+            tasksCompleted++;
+            computeTimeMs += computeMs;
+        }
+
+        synchronized int tasks() {
+            return tasksCompleted;
+        }
+
+        synchronized long computeMs() {
+            return computeTimeMs;
+        }
+    }
+
+    private static final class JobContext {
+        private final String jobId;
+        private final int width;
+        private final int height;
+        private final int totalTasks;
+        private final int progressInterval;
+        private final ConcurrentLinkedQueue<TaskTile> queue;
+        private final int[][] image;
+        private final CompletableFuture<int[][]> completion;
+        private final AtomicInteger completed = new AtomicInteger(0);
+        private final Set<Integer> completedTaskIds = ConcurrentHashMap.newKeySet();
+        private final Map<String, WorkerAccumulator> workerStats = new ConcurrentHashMap<>();
+        private final Object consolidationLock = new Object();
+        private final long startTime;
+
+        private JobContext(RenderConfig config, List<TaskTile> tiles) {
+            this.jobId = (config.jobId == null || config.jobId.isEmpty())
+                ? "job-" + UUID.randomUUID() : config.jobId;
+            this.width = config.width;
+            this.height = config.height;
+            this.totalTasks = tiles.size();
+            this.progressInterval = Math.max(1, totalTasks / 20);
+            this.queue = new ConcurrentLinkedQueue<>(tiles);
+            this.image = new int[config.height][config.width];
+            this.completion = new CompletableFuture<>();
+            this.startTime = System.currentTimeMillis();
+        }
+
+        private void recordWorker(String workerId, long computeTimeMs) {
+            String id = (workerId == null || workerId.isEmpty()) ? "unknown" : workerId;
+            workerStats.computeIfAbsent(id, k -> new WorkerAccumulator()).add(computeTimeMs);
+        }
+
+        private WorkerJobStat[] snapshotStats() {
+            return workerStats.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(e -> new WorkerJobStat(e.getKey(), e.getValue().tasks(), e.getValue().computeMs()))
+                .toArray(WorkerJobStat[]::new);
+        }
     }
 }
