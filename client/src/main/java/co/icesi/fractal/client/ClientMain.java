@@ -3,6 +3,8 @@ package co.icesi.fractal.client;
 import FractalApp.*;
 import co.icesi.fractal.core.FractalRegion;
 import co.icesi.fractal.core.MandelbrotCore;
+import co.icesi.fractal.strategy.PartitionStrategyFactory;
+import co.icesi.fractal.strategy.TaskPartitionStrategy;
 import com.zeroc.Ice.*;
 import java.io.IOException;
 import java.util.UUID;
@@ -87,19 +89,11 @@ public class ClientMain {
 
             // 1. Línea Base Monohilo Local (T_sec)
             System.out.println("\n[1/3] Ejecutando línea base monohilo local (T_sec)...");
-            long t0Sec = System.currentTimeMillis();
-            int[][] localMatrix = new int[height][width];
-            double dx = (width > 1) ? (xMax - xMin) / (width - 1) : 0.0;
-            double dy = (height > 1) ? (yMax - yMin) / (height - 1) : 0.0;
-
-            for (int y = 0; y < height; y++) {
-                double ci = yMin + y * dy;
-                for (int x = 0; x < width; x++) {
-                    double cr = xMin + x * dx;
-                    localMatrix[y][x] = MandelbrotCore.computePoint(cr, ci, maxIter);
-                }
-            }
-            long tSec = System.currentTimeMillis() - t0Sec;
+            String cachePath = System.getenv().getOrDefault("FRACTAL_BASELINE_CACHE", "");
+            BaselineCache.Baseline baseline = BaselineCache.loadOrCompute(
+                width, height, xMin, xMax, yMin, yMax, maxIter, cachePath);
+            int[][] localMatrix = baseline.matrix;
+            long tSec = baseline.tSec;
             System.out.printf("[LINEA BASE] Tiempo Secuencial (T_sec): %d ms (%.2f s)%n", tSec, tSec / 1000.0);
 
             // 2. Solicitud de Renderizado al Clúster Distribuido (T_dist)
@@ -108,6 +102,8 @@ public class ClientMain {
             RenderConfig config = new RenderConfig(
                 jobId, width, height, xMin, xMax, yMin, yMax, maxIter, strategyType, strategyParam
             );
+            TaskPartitionStrategy strategy = PartitionStrategyFactory.createStrategy(strategyType, strategyParam);
+            int tasksCount = strategy.partition(config).size();
 
             long t0Dist = System.currentTimeMillis();
             int[][] distMatrix = master.renderFractal(config);
@@ -130,7 +126,6 @@ public class ClientMain {
                 System.out.println("[VERIFICACION OK] El resultado distribuido es 100% idéntico al secuencial.");
             }
 
-            // Métricas de Rendimiento
             double speedup = (double) tSec / (double) Math.max(1, tDist);
             double efficiency = (workerCount > 0) ? (speedup / workerCount) * 100.0 : 0.0;
 
@@ -143,11 +138,24 @@ public class ClientMain {
             System.out.printf("Eficiencia Paralela (E):      %.1f%%%n", efficiency);
             System.out.println("=================================================");
 
-            // Guardar imagen distribuida
+            WorkerJobStat[] workerStats = master.getLastJobStats();
+            String runLabel = System.getenv().getOrDefault("FRACTAL_RUN_LABEL", "client");
+            CsvResults.appendMain(
+                System.getenv().getOrDefault("FRACTAL_RESULTS_CSV", ""),
+                runLabel, jobId, workerCount, width, height, maxIter, presetName,
+                strategyType, strategyParam, tasksCount, tSec, tDist, speedup, efficiency, errorCount);
+            CsvResults.appendWorkers(
+                System.getenv().getOrDefault("FRACTAL_WORKER_CSV", ""),
+                runLabel, jobId, workerStats);
+
             try {
                 MandelbrotCore.saveImage(distMatrix, width, height, maxIter, outputPath);
             } catch (IOException e) {
                 System.err.println("[ERROR] No se pudo guardar la imagen generada: " + e.getMessage());
+            }
+
+            if (errorCount > 0) {
+                System.exit(1);
             }
 
         } catch (java.lang.Exception e) {
