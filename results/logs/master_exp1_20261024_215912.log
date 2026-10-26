@@ -1,0 +1,180 @@
+=================================================
+        NODO MAESTRO (MASTER) INICIADO
+=================================================
+Escuchando en: tcp -h 0.0.0.0 -p 10000
+ThreadPool Server: 16 hilos base (max 64)
+Esperando conexion y registro de Workers...
+Presione Ctrl+C para finalizar.
+=================================================
+[MASTER] [+] Worker registrado: Worker-1 | Total activos: 1
+[MASTER] [+] Worker registrado: Worker-2 | Total activos: 2
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: exp1-b05884c1-r1
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedCountStrategy (N = 2 franjas)
+[MASTER] 2 tareas encoladas. Notificando a 2 worker(s)...
+[MASTER] [OK] Tarea #1 de Worker-1 en 194108 ms. Progreso: 1/2 (50.0%)
+[MASTER] [OK] Tarea #0 de Worker-1 en 209174 ms. Progreso: 2/2 (100.0%)
+[MASTER] Renderizado completado en 209889 ms (2/2 tareas).
+[MASTER] Carga por worker para exp1-b05884c1-r1:
+[MASTER]   Worker-1: 2 tareas, 403282 ms de computo
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: exp1-1ceae5d5-r1
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedCountStrategy (N = 4 franjas)
+[MASTER] 4 tareas encoladas. Notificando a 2 worker(s)...
+[MASTER] [OK] Tarea #1 de Worker-1 en 96192 ms. Progreso: 1/4 (25.0%)
+[MASTER] [OK] Tarea #3 de Worker-2 en 97923 ms. Progreso: 2/4 (50.0%)
+[MASTER] [OK] Tarea #0 de Worker-1 en 104071 ms. Progreso: 3/4 (75.0%)
+[MASTER] [OK] Tarea #2 de Worker-2 en 107219 ms. Progreso: 4/4 (100.0%)
+[MASTER] Renderizado completado en 107330 ms (4/4 tareas).
+[MASTER] Carga por worker para exp1-1ceae5d5-r1:
+[MASTER]   Worker-1: 2 tareas, 200263 ms de computo
+[MASTER]   Worker-2: 2 tareas, 205142 ms de computo
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: exp1-b4bdb8d8-r1
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedCountStrategy (N = 16 franjas)
+[MASTER] 16 tareas encoladas. Notificando a 2 worker(s)...
+[MASTER] [OK] Tarea #2 de Worker-2 en 23416 ms. Progreso: 1/16 (6.3%)
+[MASTER] [OK] Tarea #3 de Worker-1 en 24412 ms. Progreso: 2/16 (12.5%)
+[MASTER] [OK] Tarea #1 de Worker-1 en 28989 ms. Progreso: 3/16 (18.8%)
+[MASTER] [OK] Tarea #0 de Worker-2 en 31772 ms. Progreso: 4/16 (25.0%)
+[MASTER] [OK] Tarea #4 de Worker-2 en 26755 ms. Progreso: 5/16 (31.3%)
+[MASTER] [OK] Tarea #5 de Worker-1 en 28017 ms. Progreso: 6/16 (37.5%)
+[MASTER] [OK] Tarea #6 de Worker-1 en 25294 ms. Progreso: 7/16 (43.8%)
+[MASTER] [OK] Tarea #7 de Worker-2 en 31105 ms. Progreso: 8/16 (50.0%)
+[MASTER] [OK] Tarea #10 de Worker-1 en 19794 ms. Progreso: 9/16 (56.3%)
+[MASTER] [OK] Tarea #9 de Worker-1 en 29611 ms. Progreso: 10/16 (62.5%)
+[MASTER] [OK] Tarea #8 de Worker-2 en 37245 ms. Progreso: 11/16 (68.8%)
+[MASTER] [OK] Tarea #11 de Worker-2 en 28711 ms. Progreso: 12/16 (75.0%)
+[MASTER] [OK] Tarea #12 de Worker-1 en 21135 ms. Progreso: 13/16 (81.3%)
+[MASTER] [OK] Tarea #13 de Worker-1 en 23750 ms. Progreso: 14/16 (87.5%)
+[MASTER] [OK] Tarea #14 de Worker-2 en 26481 ms. Progreso: 15/16 (93.8%)
+[MASTER] [OK] Tarea #15 de Worker-2 en 26305 ms. Progreso: 16/16 (100.0%)
+[MASTER] Renderizado completado en 118052 ms (16/16 tareas).
+[MASTER] Carga por worker para exp1-b4bdb8d8-r1:
+[MASTER]   Worker-1: 8 tareas, 201002 ms de computo
+[MASTER]   Worker-2: 8 tareas, 231790 ms de computo
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: exp1-a7b919e9-r1
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedTileSizeStrategy (32x32 px)
+[MASTER] 8160 tareas encoladas. Notificando a 2 worker(s)...
+[MASTER] [OK] Tarea #407 de Worker-2 en 83 ms. Progreso: 408/8160 (5.0%)
+[MASTER] [OK] Tarea #816 de Worker-1 en 56 ms. Progreso: 816/8160 (10.0%)
+[MASTER] [OK] Tarea #1223 de Worker-1 en 1 ms. Progreso: 1224/8160 (15.0%)
+[MASTER] [OK] Tarea #1631 de Worker-2 en 70 ms. Progreso: 1632/8160 (20.0%)
+[MASTER] [OK] Tarea #2042 de Worker-1 en 0 ms. Progreso: 2040/8160 (25.0%)
+[MASTER] [OK] Tarea #2446 de Worker-1 en 137 ms. Progreso: 2448/8160 (30.0%)
+[MASTER] [OK] Tarea #2852 de Worker-2 en 117 ms. Progreso: 2856/8160 (35.0%)
+[MASTER] [OK] Tarea #3264 de Worker-1 en 7 ms. Progreso: 3264/8160 (40.0%)
+[MASTER] [OK] Tarea #3670 de Worker-2 en 94 ms. Progreso: 3672/8160 (45.0%)
+[MASTER] [OK] Tarea #4082 de Worker-1 en 0 ms. Progreso: 4080/8160 (50.0%)
+[MASTER] [OK] Tarea #4488 de Worker-2 en 56 ms. Progreso: 4488/8160 (55.0%)
+[MASTER] [OK] Tarea #4893 de Worker-1 en 112 ms. Progreso: 4896/8160 (60.0%)
+[MASTER] [OK] Tarea #5304 de Worker-1 en 6 ms. Progreso: 5304/8160 (65.0%)
+[MASTER] [OK] Tarea #5711 de Worker-2 en 61 ms. Progreso: 5712/8160 (70.0%)
+[MASTER] [OK] Tarea #6117 de Worker-1 en 63 ms. Progreso: 6120/8160 (75.0%)
+[MASTER] [OK] Tarea #6525 de Worker-2 en 101 ms. Progreso: 6528/8160 (80.0%)
+[MASTER] [OK] Tarea #6936 de Worker-1 en 73 ms. Progreso: 6936/8160 (85.0%)
+[MASTER] [OK] Tarea #7342 de Worker-2 en 0 ms. Progreso: 7344/8160 (90.0%)
+[MASTER] [OK] Tarea #7749 de Worker-2 en 114 ms. Progreso: 7752/8160 (95.0%)
+[MASTER] [OK] Tarea #8158 de Worker-1 en 34 ms. Progreso: 8160/8160 (100.0%)
+[MASTER] Renderizado completado en 120313 ms (8160/8160 tareas).
+[MASTER] Carga por worker para exp1-a7b919e9-r1:
+[MASTER]   Worker-1: 4126 tareas, 232347 ms de computo
+[MASTER]   Worker-2: 4034 tareas, 232124 ms de computo
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: exp1-230b2de0-r1
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedTileSizeStrategy (64x64 px)
+[MASTER] 2040 tareas encoladas. Notificando a 2 worker(s)...
+[MASTER] [OK] Tarea #101 de Worker-2 en 280 ms. Progreso: 102/2040 (5.0%)
+[MASTER] [OK] Tarea #201 de Worker-2 en 415 ms. Progreso: 204/2040 (10.0%)
+[MASTER] [OK] Tarea #307 de Worker-1 en 14 ms. Progreso: 306/2040 (15.0%)
+[MASTER] [OK] Tarea #407 de Worker-1 en 234 ms. Progreso: 408/2040 (20.0%)
+[MASTER] [OK] Tarea #509 de Worker-1 en 327 ms. Progreso: 510/2040 (25.0%)
+[MASTER] [OK] Tarea #614 de Worker-2 en 7 ms. Progreso: 612/2040 (30.0%)
+[MASTER] [OK] Tarea #711 de Worker-2 en 483 ms. Progreso: 714/2040 (35.0%)
+[MASTER] [OK] Tarea #815 de Worker-2 en 317 ms. Progreso: 816/2040 (40.0%)
+[MASTER] [OK] Tarea #918 de Worker-2 en 256 ms. Progreso: 918/2040 (45.0%)
+[MASTER] [OK] Tarea #1022 de Worker-2 en 2 ms. Progreso: 1020/2040 (50.0%)
+[MASTER] [OK] Tarea #1122 de Worker-1 en 227 ms. Progreso: 1122/2040 (55.0%)
+[MASTER] [OK] Tarea #1223 de Worker-1 en 192 ms. Progreso: 1224/2040 (60.0%)
+[MASTER] [OK] Tarea #1328 de Worker-1 en 11 ms. Progreso: 1326/2040 (65.0%)
+[MASTER] [OK] Tarea #1427 de Worker-1 en 306 ms. Progreso: 1428/2040 (70.0%)
+[MASTER] [OK] Tarea #1529 de Worker-1 en 217 ms. Progreso: 1530/2040 (75.0%)
+[MASTER] [OK] Tarea #1634 de Worker-2 en 3 ms. Progreso: 1632/2040 (80.0%)
+[MASTER] [OK] Tarea #1731 de Worker-2 en 470 ms. Progreso: 1734/2040 (85.0%)
+[MASTER] [OK] Tarea #1836 de Worker-2 en 302 ms. Progreso: 1836/2040 (90.0%)
+[MASTER] [OK] Tarea #1939 de Worker-1 en 33 ms. Progreso: 1938/2040 (95.0%)
+[MASTER] [OK] Tarea #2039 de Worker-1 en 303 ms. Progreso: 2040/2040 (100.0%)
+[MASTER] Renderizado completado en 110646 ms (2040/2040 tareas).
+[MASTER] Carga por worker para exp1-230b2de0-r1:
+[MASTER]   Worker-1: 1013 tareas, 219118 ms de computo
+[MASTER]   Worker-2: 1027 tareas, 218941 ms de computo
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: exp1-a44e2b32-r1
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedTileSizeStrategy (128x128 px)
+[MASTER] 510 tareas encoladas. Notificando a 2 worker(s)...
+[MASTER] [OK] Tarea #25 de Worker-1 en 985 ms. Progreso: 25/510 (4.9%)
+[MASTER] [OK] Tarea #49 de Worker-2 en 926 ms. Progreso: 50/510 (9.8%)
+[MASTER] [OK] Tarea #73 de Worker-1 en 1200 ms. Progreso: 75/510 (14.7%)
+[MASTER] [OK] Tarea #89 de Worker-2 en 1388 ms. Progreso: 100/510 (19.6%)
+[MASTER] [OK] Tarea #126 de Worker-1 en 22 ms. Progreso: 125/510 (24.5%)
+[MASTER] [OK] Tarea #152 de Worker-2 en 33 ms. Progreso: 150/510 (29.4%)
+[MASTER] [OK] Tarea #174 de Worker-2 en 1289 ms. Progreso: 175/510 (34.3%)
+[MASTER] [OK] Tarea #201 de Worker-1 en 1120 ms. Progreso: 200/510 (39.2%)
+[MASTER] [OK] Tarea #225 de Worker-2 en 1328 ms. Progreso: 225/510 (44.1%)
+[MASTER] [OK] Tarea #249 de Worker-1 en 897 ms. Progreso: 250/510 (49.0%)
+[MASTER] [OK] Tarea #275 de Worker-2 en 90 ms. Progreso: 275/510 (53.9%)
+[MASTER] [OK] Tarea #302 de Worker-1 en 15 ms. Progreso: 300/510 (58.8%)
+[MASTER] [OK] Tarea #324 de Worker-2 en 1057 ms. Progreso: 325/510 (63.7%)
+[MASTER] [OK] Tarea #349 de Worker-2 en 1647 ms. Progreso: 350/510 (68.6%)
+[MASTER] [OK] Tarea #372 de Worker-1 en 1965 ms. Progreso: 375/510 (73.5%)
+[MASTER] [OK] Tarea #389 de Worker-2 en 1150 ms. Progreso: 400/510 (78.4%)
+[MASTER] [OK] Tarea #427 de Worker-2 en 21 ms. Progreso: 425/510 (83.3%)
+[MASTER] [OK] Tarea #452 de Worker-1 en 48 ms. Progreso: 450/510 (88.2%)
+[MASTER] [OK] Tarea #473 de Worker-1 en 3480 ms. Progreso: 475/510 (93.1%)
+[MASTER] [OK] Tarea #498 de Worker-2 en 3157 ms. Progreso: 500/510 (98.0%)
+[MASTER] [OK] Tarea #509 de Worker-2 en 3837 ms. Progreso: 510/510 (100.0%)
+[MASTER] Renderizado completado en 144687 ms (510/510 tareas).
+[MASTER] Carga por worker para exp1-a44e2b32-r1:
+[MASTER]   Worker-1: 270 tareas, 283256 ms de computo
+[MASTER]   Worker-2: 240 tareas, 284935 ms de computo
+-------------------------------------------------
+[MASTER] Nueva solicitud de renderizado: exp1-740e70a0-r1
+[MASTER] Resolucion: 3840x2160 | MaxIter: 5000
+[MASTER] Estrategia de particion: FixedTileSizeStrategy (256x256 px)
+[MASTER] 135 tareas encoladas. Notificando a 2 worker(s)...
+[MASTER] [OK] Tarea #7 de Worker-2 en 5414 ms. Progreso: 6/135 (4.4%)
+[MASTER] [OK] Tarea #13 de Worker-1 en 4052 ms. Progreso: 12/135 (8.9%)
+[MASTER] [OK] Tarea #14 de Worker-2 en 6090 ms. Progreso: 18/135 (13.3%)
+[MASTER] [OK] Tarea #25 de Worker-1 en 5244 ms. Progreso: 24/135 (17.8%)
+[MASTER] [OK] Tarea #31 de Worker-1 en 147 ms. Progreso: 30/135 (22.2%)
+[MASTER] [OK] Tarea #35 de Worker-2 en 5961 ms. Progreso: 36/135 (26.7%)
+[MASTER] [OK] Tarea #41 de Worker-1 en 3914 ms. Progreso: 42/135 (31.1%)
+[MASTER] [OK] Tarea #44 de Worker-1 en 4003 ms. Progreso: 48/135 (35.6%)
+[MASTER] [OK] Tarea #54 de Worker-2 en 3686 ms. Progreso: 54/135 (40.0%)
+[MASTER] [OK] Tarea #57 de Worker-2 en 5014 ms. Progreso: 60/135 (44.4%)
+[MASTER] [OK] Tarea #59 de Worker-1 en 6394 ms. Progreso: 66/135 (48.9%)
+[MASTER] [OK] Tarea #70 de Worker-2 en 7303 ms. Progreso: 72/135 (53.3%)
+[MASTER] [OK] Tarea #79 de Worker-2 en 1478 ms. Progreso: 78/135 (57.8%)
+[MASTER] [OK] Tarea #84 de Worker-1 en 5440 ms. Progreso: 84/135 (62.2%)
+[MASTER] [OK] Tarea #92 de Worker-1 en 130 ms. Progreso: 90/135 (66.7%)
+[MASTER] [OK] Tarea #89 de Worker-2 en 4953 ms. Progreso: 96/135 (71.1%)
+[MASTER] [OK] Tarea #102 de Worker-1 en 5164 ms. Progreso: 102/135 (75.6%)
+[MASTER] [OK] Tarea #109 de Worker-1 en 553 ms. Progreso: 108/135 (80.0%)
+[MASTER] [OK] Tarea #113 de Worker-2 en 5130 ms. Progreso: 114/135 (84.4%)
+[MASTER] [OK] Tarea #117 de Worker-2 en 5271 ms. Progreso: 120/135 (88.9%)
+[MASTER] [OK] Tarea #126 de Worker-1 en 2076 ms. Progreso: 126/135 (93.3%)
+[MASTER] [OK] Tarea #131 de Worker-2 en 2330 ms. Progreso: 132/135 (97.8%)
+[MASTER] [OK] Tarea #134 de Worker-2 en 1900 ms. Progreso: 135/135 (100.0%)
+[MASTER] Renderizado completado en 128688 ms (135/135 tareas).
+[MASTER] Carga por worker para exp1-740e70a0-r1:
+[MASTER]   Worker-1: 78 tareas, 256105 ms de computo
+[MASTER]   Worker-2: 57 tareas, 256159 ms de computo
+[MASTER] [-] Worker retirado: Worker-1 | Total activos: 1
+[MASTER] [-] Worker retirado: Worker-2 | Total activos: 0

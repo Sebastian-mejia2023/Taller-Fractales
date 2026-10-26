@@ -1,0 +1,14 @@
+run_label,job_id,worker_id,tasks_completed,compute_time_ms
+exp1_count_2_r1,exp1-b05884c1-r1,Worker-1,2,403282
+exp1_count_4_r1,exp1-1ceae5d5-r1,Worker-1,2,200263
+exp1_count_4_r1,exp1-1ceae5d5-r1,Worker-2,2,205142
+exp1_count_16_r1,exp1-b4bdb8d8-r1,Worker-1,8,201002
+exp1_count_16_r1,exp1-b4bdb8d8-r1,Worker-2,8,231790
+exp1_tile_32_r1,exp1-a7b919e9-r1,Worker-1,4126,232347
+exp1_tile_32_r1,exp1-a7b919e9-r1,Worker-2,4034,232124
+exp1_tile_64_r1,exp1-230b2de0-r1,Worker-1,1013,219118
+exp1_tile_64_r1,exp1-230b2de0-r1,Worker-2,1027,218941
+exp1_tile_128_r1,exp1-a44e2b32-r1,Worker-1,270,283256
+exp1_tile_128_r1,exp1-a44e2b32-r1,Worker-2,240,284935
+exp1_tile_256_r1,exp1-740e70a0-r1,Worker-1,78,256105
+exp1_tile_256_r1,exp1-740e70a0-r1,Worker-2,57,256159

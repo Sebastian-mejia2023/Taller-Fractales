@@ -1,0 +1,37 @@
+[INFO] Maestro iniciado en puerto 10000 (PID 547231)
+[INFO] Worker Worker-1 registrado en puerto 10001 con 2 hilo(s) (PID 547349)
+[INFO] Worker Worker-2 registrado en puerto 10002 con 2 hilo(s) (PID 547473)
+[INFO] Ejecutando Experimento 1: 3840x2160, 5000 iteraciones, preset seahorse, 1 repeticion(es)
+=================================================
+     EXPERIMENTO 1: GRANULARIDAD DE TAREAS
+=================================================
+Region / Preset: Valle de los Caballitos de Mar (Seahorse Valley) (seahorse)
+Resolucion:      3840x2160 | MaxIter: 5000 | Workers: 2 | Repeticiones: 1
+
+[BASELINE] Cache guardado: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/cache/baseline_seahorse_3840x2160_5000.bin
+T_sec = 380955 ms (380,96 s)
+
+[EXP1] N=2 rep=1/1 | T_dist=211022 ms | S=1.81x | E=90.3% | errores=0
+[EXP1] N=4 rep=1/1 | T_dist=107685 ms | S=3.54x | E=176.9% | errores=0
+[EXP1] N=16 rep=1/1 | T_dist=118336 ms | S=3.22x | E=161.0% | errores=0
+[EXP1] tile=32 rep=1/1 | T_dist=120579 ms | S=3.16x | E=158.0% | errores=0
+[EXP1] tile=64 rep=1/1 | T_dist=110977 ms | S=3.43x | E=171.6% | errores=0
+[EXP1] tile=128 rep=1/1 | T_dist=145030 ms | S=2.63x | E=131.3% | errores=0
+[EXP1] tile=256 rep=1/1 | T_dist=128949 ms | S=2.95x | E=147.7% | errores=0
+
+T_sec de referencia: 380955 ms | Workers: 2 | Repeticiones: 1
+
+| Estrategia | Parametro | Tareas | T_sec (ms) | T_dist mediana (ms) | Speedup (S) | Eficiencia (E) | Errores |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| FixedCount (Franjas) | 2 | 2 | 380955 | 211022 | 1.81x | 90.3% | 0 |
+| FixedCount (Franjas) | 4 | 4 | 380955 | 107685 | 3.54x | 176.9% | 0 |
+| FixedCount (Franjas) | 16 | 16 | 380955 | 118336 | 3.22x | 161.0% | 0 |
+| FixedTileSize (Baldosas) | 32 | 8160 | 380955 | 120579 | 3.16x | 158.0% | 0 |
+| FixedTileSize (Baldosas) | 64 | 2040 | 380955 | 110977 | 3.43x | 171.6% | 0 |
+| FixedTileSize (Baldosas) | 128 | 510 | 380955 | 145030 | 2.63x | 131.3% | 0 |
+| FixedTileSize (Baldosas) | 256 | 135 | 380955 | 128949 | 2.95x | 147.7% | 0 |
+Resultados crudos: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/experiment1.csv
+Metricas por worker: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/experiment1_worker_stats.csv
+[INFO] Resultados: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/experiment1.csv
+[INFO] Metricas por Worker: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/experiment1_worker_stats.csv
+[INFO] Logs: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/logs
