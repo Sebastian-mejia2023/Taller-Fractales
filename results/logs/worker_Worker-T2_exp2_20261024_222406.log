@@ -1,0 +1,14 @@
+=================================================
+        NODO TRABAJADOR (WORKER) ACTIVO
+=================================================
+Identificador:   Worker-T2
+Puerto Local:    10002
+Observer:        WorkerObserver:tcp -h 127.0.0.1 -p 10002
+Maestro Conect.: MasterService:tcp -h localhost -p 10000
+Hilos de Computo:2 hilos en ThreadPool
+Estado actual:   EN ESPERA (STANDBY)
+Presione Ctrl+C para finalizar.
+=================================================
+[Worker-T2] [EVENTO] Tareas disponibles para 'job-5c588a53'. Asegurando 2 hilos de computo...
+
+[SHUTDOWN] Desregistrando worker del Master...

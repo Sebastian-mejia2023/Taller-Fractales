@@ -1,0 +1,14 @@
+=================================================
+        NODO TRABAJADOR (WORKER) ACTIVO
+=================================================
+Identificador:   Worker-T4
+Puerto Local:    10003
+Observer:        WorkerObserver:tcp -h 127.0.0.1 -p 10003
+Maestro Conect.: MasterService:tcp -h localhost -p 10000
+Hilos de Computo:4 hilos en ThreadPool
+Estado actual:   EN ESPERA (STANDBY)
+Presione Ctrl+C para finalizar.
+=================================================
+[Worker-T4] [EVENTO] Tareas disponibles para 'job-b92926a7'. Asegurando 4 hilos de computo...
+
+[SHUTDOWN] Desregistrando worker del Master...

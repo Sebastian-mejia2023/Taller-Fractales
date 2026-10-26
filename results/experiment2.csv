@@ -1,0 +1,5 @@
+run_label,job_id,workers,width,height,max_iter,preset,strategy_type,strategy_param,tasks,t_sec_ms,t_dist_ms,speedup,efficiency_pct,errors
+exp2_threads1_r1,job-1a33a15d,1,3840,2160,5000,seahorse,1,64,2040,380955,431281,0.8833,88.3310,0
+exp2_threads2_r1,job-5c588a53,1,3840,2160,5000,seahorse,1,64,2040,380955,182207,2.0908,209.0781,0
+exp2_threads4_r1,job-b92926a7,1,3840,2160,5000,seahorse,1,64,2040,380955,118544,3.2136,321.3617,0
+exp2_threads64_r1,job-02cfc69c,1,3840,2160,5000,seahorse,1,64,2040,380955,105195,3.6214,362.1417,0

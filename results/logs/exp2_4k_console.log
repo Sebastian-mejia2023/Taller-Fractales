@@ -1,0 +1,128 @@
+[INFO] Maestro iniciado en puerto 10000 (PID 597284)
+[INFO] Worker Worker-T1 registrado en puerto 10001 con 1 hilo(s) (PID 597470)
+[INFO] Experimento 2: 1 hilo(s), repeticion 1/1
+=================================================
+         CLIENTE DE BENCHMARK FRACTAL
+=================================================
+Conectado a Master:    MasterService:tcp -h localhost -p 10000
+Workers en el clúster: 1 nodo(s) activo(s)
+Preset / Región:       Valle de los Caballitos de Mar (Seahorse Valley) (seahorse)
+Dimensiones imagen:    3840x2160 (8294400 px)
+Plano Complejo:        X=[-0,750000, -0,732222], Y=[0,090000, 0,100000]
+Max. Iteraciones:      5000
+Estrategia elegida:    FixedTileSize (Baldosas) (Parametro = 64)
+
+[1/3] Ejecutando línea base monohilo local (T_sec)...
+[BASELINE] Cache reutilizado: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/cache/baseline_seahorse_3840x2160_5000.bin (T_sec = 380955 ms)
+[LINEA BASE] Tiempo Secuencial (T_sec): 380955 ms (380,96 s)
+
+[2/3] Solicitando renderizado distribuido al clúster Master-Worker...
+
+[3/3] Validando integridad de los datos calculados...
+[VERIFICACION OK] El resultado distribuido es 100% idéntico al secuencial.
+
+=================================================
+              RESULTADOS DEL BENCHMARK
+=================================================
+Tiempo Monolito (T_sec):      380955 ms (380,96 s)
+Tiempo Clúster (T_dist):      431281 ms (431,28 s)
+Aceleración (Speedup S):      0,88x
+Eficiencia Paralela (E):      88,3%
+=================================================
+[MandelbrotCore] Imagen guardada satisfactoriamente en: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/images/exp2_threads1_r1.png
+[INFO] Worker Worker-T2 registrado en puerto 10002 con 2 hilo(s) (PID 611838)
+[INFO] Experimento 2: 2 hilo(s), repeticion 1/1
+=================================================
+         CLIENTE DE BENCHMARK FRACTAL
+=================================================
+Conectado a Master:    MasterService:tcp -h localhost -p 10000
+Workers en el clúster: 1 nodo(s) activo(s)
+Preset / Región:       Valle de los Caballitos de Mar (Seahorse Valley) (seahorse)
+Dimensiones imagen:    3840x2160 (8294400 px)
+Plano Complejo:        X=[-0,750000, -0,732222], Y=[0,090000, 0,100000]
+Max. Iteraciones:      5000
+Estrategia elegida:    FixedTileSize (Baldosas) (Parametro = 64)
+
+[1/3] Ejecutando línea base monohilo local (T_sec)...
+[BASELINE] Cache reutilizado: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/cache/baseline_seahorse_3840x2160_5000.bin (T_sec = 380955 ms)
+[LINEA BASE] Tiempo Secuencial (T_sec): 380955 ms (380,96 s)
+
+[2/3] Solicitando renderizado distribuido al clúster Master-Worker...
+
+[3/3] Validando integridad de los datos calculados...
+[VERIFICACION OK] El resultado distribuido es 100% idéntico al secuencial.
+
+=================================================
+              RESULTADOS DEL BENCHMARK
+=================================================
+Tiempo Monolito (T_sec):      380955 ms (380,96 s)
+Tiempo Clúster (T_dist):      182207 ms (182,21 s)
+Aceleración (Speedup S):      2,09x
+Eficiencia Paralela (E):      209,1%
+=================================================
+[MandelbrotCore] Imagen guardada satisfactoriamente en: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/images/exp2_threads2_r1.png
+[INFO] Worker Worker-T4 registrado en puerto 10003 con 4 hilo(s) (PID 618081)
+[INFO] Experimento 2: 4 hilo(s), repeticion 1/1
+=================================================
+         CLIENTE DE BENCHMARK FRACTAL
+=================================================
+Conectado a Master:    MasterService:tcp -h localhost -p 10000
+Workers en el clúster: 1 nodo(s) activo(s)
+Preset / Región:       Valle de los Caballitos de Mar (Seahorse Valley) (seahorse)
+Dimensiones imagen:    3840x2160 (8294400 px)
+Plano Complejo:        X=[-0,750000, -0,732222], Y=[0,090000, 0,100000]
+Max. Iteraciones:      5000
+Estrategia elegida:    FixedTileSize (Baldosas) (Parametro = 64)
+
+[1/3] Ejecutando línea base monohilo local (T_sec)...
+[BASELINE] Cache reutilizado: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/cache/baseline_seahorse_3840x2160_5000.bin (T_sec = 380955 ms)
+[LINEA BASE] Tiempo Secuencial (T_sec): 380955 ms (380,96 s)
+
+[2/3] Solicitando renderizado distribuido al clúster Master-Worker...
+
+[3/3] Validando integridad de los datos calculados...
+[VERIFICACION OK] El resultado distribuido es 100% idéntico al secuencial.
+
+=================================================
+              RESULTADOS DEL BENCHMARK
+=================================================
+Tiempo Monolito (T_sec):      380955 ms (380,96 s)
+Tiempo Clúster (T_dist):      118544 ms (118,54 s)
+Aceleración (Speedup S):      3,21x
+Eficiencia Paralela (E):      321,4%
+=================================================
+[MandelbrotCore] Imagen guardada satisfactoriamente en: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/images/exp2_threads4_r1.png
+[INFO] Worker Worker-T64 registrado en puerto 10004 con 64 hilo(s) (PID 622333)
+[INFO] Experimento 2: 64 hilo(s), repeticion 1/1
+=================================================
+         CLIENTE DE BENCHMARK FRACTAL
+=================================================
+Conectado a Master:    MasterService:tcp -h localhost -p 10000
+Workers en el clúster: 1 nodo(s) activo(s)
+Preset / Región:       Valle de los Caballitos de Mar (Seahorse Valley) (seahorse)
+Dimensiones imagen:    3840x2160 (8294400 px)
+Plano Complejo:        X=[-0,750000, -0,732222], Y=[0,090000, 0,100000]
+Max. Iteraciones:      5000
+Estrategia elegida:    FixedTileSize (Baldosas) (Parametro = 64)
+
+[1/3] Ejecutando línea base monohilo local (T_sec)...
+[BASELINE] Cache reutilizado: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/cache/baseline_seahorse_3840x2160_5000.bin (T_sec = 380955 ms)
+[LINEA BASE] Tiempo Secuencial (T_sec): 380955 ms (380,96 s)
+
+[2/3] Solicitando renderizado distribuido al clúster Master-Worker...
+
+[3/3] Validando integridad de los datos calculados...
+[VERIFICACION OK] El resultado distribuido es 100% idéntico al secuencial.
+
+=================================================
+              RESULTADOS DEL BENCHMARK
+=================================================
+Tiempo Monolito (T_sec):      380955 ms (380,96 s)
+Tiempo Clúster (T_dist):      105195 ms (105,20 s)
+Aceleración (Speedup S):      3,62x
+Eficiencia Paralela (E):      362,1%
+=================================================
+[MandelbrotCore] Imagen guardada satisfactoriamente en: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/images/exp2_threads64_r1.png
+[INFO] Resultados: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/experiment2.csv
+[INFO] Metricas por Worker: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/experiment2_worker_stats.csv
+[INFO] Logs: /home/mejia/Documentos/SEMESTRE_05/COMPUNET1/posttragedia/Taller-Fractales/results/logs
